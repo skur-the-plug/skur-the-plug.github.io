@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Curriculum vitae of Anas Houhou, software engineering student at ENSIAS.">
+    <meta name="theme-color" content="#101827">
+    <title>Anas Houhou — CV</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="toolbar">
+      <div class="identity">
+        <span class="monogram" aria-hidden="true">AH</span>
+        <div>
+          <h1>Anas Houhou</h1>
+          <p>Software Engineering CV</p>
+        </div>
+      </div>
+
+      <nav aria-label="CV actions">
+        <a class="button secondary" href="Cv.pdf" target="_blank" rel="noopener">Open PDF</a>
+        <a class="button primary" href="Cv.pdf" download="Anas-Houhou-CV.pdf">Download CV</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="viewer" aria-label="CV document viewer">
+        <object data="Cv.pdf#view=FitH" type="application/pdf">
+          <div class="fallback">
+            <h2>View my CV</h2>
+            <p>Your browser cannot display the PDF here.</p>
+            <a class="button primary" href="Cv.pdf">Open the CV</a>
+          </div>
+        </object>
+      </section>
+    </main>
+  </body>
+</html>
