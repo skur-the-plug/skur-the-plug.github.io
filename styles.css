@@ -75,6 +75,22 @@ nav {
   gap: 0.65rem;
 }
 
+.actions {
+  display: grid;
+  justify-items: end;
+  gap: 0.45rem;
+}
+
+.ats-links {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+.ats-links a {
+  color: #bfdbfe;
+  text-underline-offset: 0.18em;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -168,6 +184,14 @@ object {
   nav {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .actions {
+    justify-items: stretch;
+  }
+
+  .ats-links {
+    text-align: center;
   }
 
   main {
