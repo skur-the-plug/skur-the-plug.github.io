@@ -14,6 +14,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+    <script>
+      (() => {
+        try {
+          const mode = new URLSearchParams(window.location.search).get('mode');
+          if (mode === 'terminal') sessionStorage.setItem('anas-portfolio-mode', 'terminal');
+          if (!sessionStorage.getItem('anas-portfolio-mode')) document.documentElement.classList.add('mode-choice-open');
+        } catch {
+          document.documentElement.classList.add('mode-choice-open');
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
   </head>
@@ -22,6 +33,46 @@
     <div class="noise" aria-hidden="true"></div>
     <div class="glow glow-one" aria-hidden="true"></div>
     <div class="glow glow-two" aria-hidden="true"></div>
+
+    <section class="mode-chooser" id="mode-chooser" role="dialog" aria-modal="true" aria-labelledby="mode-chooser-title" aria-describedby="mode-chooser-copy">
+      <div class="mode-chooser-panel">
+        <header class="mode-chooser-heading">
+          <p><span>00</span> / ENTRY POINT</p>
+          <h2 id="mode-chooser-title">Choose your experience.</h2>
+          <p id="mode-chooser-copy">Same work, two moods. Pick the way you’d like to explore.</p>
+        </header>
+
+        <div class="mode-options">
+          <a class="mode-option mode-option-terminal" href="?mode=terminal" data-mode-choice="terminal">
+            <div class="mode-option-copy">
+              <div><span>⌁</span><p>I WANT TO EXPLORE</p></div>
+              <h3>Enter the terminal</h3>
+              <p>Type commands, uncover details, and navigate at your own pace.</p>
+            </div>
+            <figure>
+              <img src="assets/mode-terminal.webp" width="960" height="666" alt="Preview of the interactive terminal portfolio">
+              <span aria-hidden="true">INTERACTIVE / COMMAND-DRIVEN</span>
+            </figure>
+            <div class="mode-option-action"><span>Terminal mode</span><b aria-hidden="true">ENTER ↵</b></div>
+          </a>
+
+          <a class="mode-option mode-option-visual" href="gui.html" data-mode-choice="visual">
+            <div class="mode-option-copy">
+              <div><span>✦</span><p>GIVE ME THE TOUR</p></div>
+              <h3>Open the visual story</h3>
+              <p>Scroll through a cinematic, guided presentation of the work.</p>
+            </div>
+            <figure>
+              <img src="assets/mode-visual.webp" width="960" height="666" alt="Preview of the cinematic visual portfolio">
+              <span aria-hidden="true">GUIDED / CINEMATIC</span>
+            </figure>
+            <div class="mode-option-action"><span>Visual mode</span><b aria-hidden="true">OPEN ↗</b></div>
+          </a>
+        </div>
+
+        <p class="mode-chooser-note"><i aria-hidden="true"></i> No wrong door—you can switch modes anytime.</p>
+      </div>
+    </section>
 
     <header class="topbar">
       <a class="identity" href="/" aria-label="Anas Houhou terminal home">

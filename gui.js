@@ -25,3 +25,8 @@ navigation.querySelectorAll('a').forEach((link) => {
 });
 
 document.querySelector('#year').textContent = new Date().getFullYear();
+
+try { sessionStorage.setItem('anas-portfolio-mode', 'visual'); } catch {}
+document.querySelector('.header-cta').addEventListener('click', () => {
+  try { sessionStorage.setItem('anas-portfolio-mode', 'terminal'); } catch {}
+});

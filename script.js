@@ -7,11 +7,14 @@ const asciiVideo = document.querySelector('#anas-ascii-video');
 const asciiVideoSource = asciiVideo.querySelector('source');
 const probeToggle = document.querySelector('#probe-toggle');
 const probeFrameCount = document.querySelector('#probe-frame-count');
+const modeChooser = document.querySelector('#mode-chooser');
+const modeChoices = [...modeChooser.querySelectorAll('[data-mode-choice]')];
 const initialTerminalMarkup = terminalOutput.innerHTML;
 
 const commandHistory = [];
 let historyIndex = 0;
 let activeTheme = 'cyan';
+let pendingSharedCommand = null;
 
 const projectData = {
   mega: {
@@ -74,7 +77,7 @@ const commands = [
   'about', 'projects', 'project', 'experience', 'skills', 'education',
   'leadership', 'contact', 'resume', 'gui', 'github', 'linkedin',
   'artstation', 'theme', 'whoami', 'ls', 'pwd', 'date', 'history',
-  'neofetch', 'anas', 'status', 'welcome', 'help', 'clear'
+  'neofetch', 'anas', 'mode', 'status', 'welcome', 'help', 'clear'
 ];
 
 const aliases = {
@@ -85,8 +88,46 @@ const aliases = {
   exp: 'experience',
   cv: 'resume',
   visual: 'gui',
+  choose: 'mode',
   cls: 'clear'
 };
+
+function rememberMode(mode) {
+  try { sessionStorage.setItem('anas-portfolio-mode', mode); } catch {}
+}
+
+function setPageInert(isInert) {
+  document.querySelectorAll('body > :not(.mode-chooser)').forEach((element) => {
+    if (element instanceof HTMLElement) element.inert = isInert;
+  });
+}
+
+function openModeChooser() {
+  modeChooser.classList.remove('is-leaving');
+  document.documentElement.classList.add('mode-choice-open');
+  setPageInert(true);
+  setTimeout(() => modeChoices[0].focus({ preventScroll: true }), 40);
+}
+
+function finishModeChoice(mode, destination) {
+  rememberMode(mode);
+  modeChooser.classList.add('is-leaving');
+  if (mode === 'visual') {
+    setTimeout(() => { window.location.href = destination; }, 250);
+    return;
+  }
+  setTimeout(() => {
+    document.documentElement.classList.remove('mode-choice-open');
+    modeChooser.classList.remove('is-leaving');
+    setPageInert(false);
+    terminalInput.focus({ preventScroll: true });
+    if (pendingSharedCommand) {
+      const command = pendingSharedCommand;
+      pendingSharedCommand = null;
+      setTimeout(() => executeCommand(command), 80);
+    }
+  }, 300);
+}
 
 function saveSession() {
   try {
@@ -135,6 +176,7 @@ function renderHelp() {
     ['theme', 'Change terminal accent'],
     ['neofetch', 'Compact system/profile summary'],
     ['anas', 'Run the visual identity probe'],
+    ['mode', 'Choose terminal or visual mode'],
     ['status', 'Portfolio availability status'],
     ['welcome', 'Restore the welcome screen'],
     ['clear', 'Clear terminal output']
@@ -306,6 +348,7 @@ function executeCommand(rawCommand) {
     case 'resume': response = renderResume(argument); break;
     case 'gui':
       response = '<p class="success">Launching visual portfolio...</p><p>Terminal state will remain available when you return.</p>';
+      rememberMode('visual');
       setTimeout(() => { window.location.href = 'gui.html'; }, 650);
       break;
     case 'github':
@@ -329,6 +372,10 @@ function executeCommand(rawCommand) {
     case 'anas':
       response = '<p class="success">Identity signature accepted.</p><p>Opening visual probe… Press <kbd>Esc</kbd> to return.</p>';
       setTimeout(openIdentityProbe, 180);
+      break;
+    case 'mode':
+      response = '<p class="success">Opening experience selector…</p>';
+      setTimeout(openModeChooser, 180);
       break;
     case 'status': response = renderStatus(); break;
     case 'theme': {
@@ -367,6 +414,14 @@ document.addEventListener('click', (event) => {
   executeCommand(commandTarget.dataset.command);
   terminalInput.focus({ preventScroll: true });
 });
+
+modeChoices.forEach((choice) => {
+  choice.addEventListener('click', (event) => {
+    event.preventDefault();
+    finishModeChoice(choice.dataset.modeChoice, choice.href);
+  });
+});
+document.querySelector('.gui-link').addEventListener('click', () => rememberMode('visual'));
 
 document.querySelector('#probe-close').addEventListener('click', closeIdentityProbe);
 document.querySelector('#probe-return').addEventListener('click', closeIdentityProbe);
@@ -410,12 +465,27 @@ terminalInput.addEventListener('keydown', (event) => {
 });
 
 document.addEventListener('keydown', (event) => {
+  if (document.documentElement.classList.contains('mode-choice-open') && event.key === 'Tab') {
+    const first = modeChoices[0];
+    const last = modeChoices[modeChoices.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+  if (document.documentElement.classList.contains('mode-choice-open') && event.key === 'Escape') {
+    event.preventDefault();
+    modeChoices[0].focus({ preventScroll: true });
+  }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'l') {
     event.preventDefault();
     terminalOutput.innerHTML = '';
     saveSession();
   }
-  if (event.key === 'Escape' && !identityProbe.open) terminalInput.focus({ preventScroll: true });
+  if (event.key === 'Escape' && !identityProbe.open && !document.documentElement.classList.contains('mode-choice-open')) terminalInput.focus({ preventScroll: true });
 });
 
 function updateClock() {
@@ -445,8 +515,17 @@ try {
 
 const sharedCommand = new URLSearchParams(window.location.search).get('cmd');
 if (sharedCommand) {
-  setTimeout(() => executeCommand(sharedCommand), 120);
+  if (document.documentElement.classList.contains('mode-choice-open')) pendingSharedCommand = sharedCommand;
+  else setTimeout(() => executeCommand(sharedCommand), 120);
   window.history.replaceState({}, '', window.location.pathname);
 }
 
-if (window.matchMedia('(pointer: fine)').matches) terminalInput.focus({ preventScroll: true });
+if (new URLSearchParams(window.location.search).has('mode')) {
+  const cleanUrl = new URL(window.location.href);
+  cleanUrl.searchParams.delete('mode');
+  window.history.replaceState({}, '', `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
+}
+
+if (document.documentElement.classList.contains('mode-choice-open')) openModeChooser();
+
+if (window.matchMedia('(pointer: fine)').matches && !document.documentElement.classList.contains('mode-choice-open')) terminalInput.focus({ preventScroll: true });
