@@ -87,6 +87,7 @@
           <span>TRY A COMMAND</span>
           <div>
             <button type="button" data-command="about">about</button>
+            <button type="button" data-command="anas">anas</button>
             <button type="button" data-command="projects">projects</button>
             <button type="button" data-command="experience">experience</button>
             <button type="button" data-command="skills">skills</button>
@@ -104,6 +105,50 @@
         </div>
       </section>
     </main>
+
+    <dialog class="identity-probe" id="identity-probe" aria-labelledby="probe-title">
+      <div class="probe-shell">
+        <header class="probe-header">
+          <div><i aria-hidden="true"></i><span>IDENTITY_PROBE.EXE</span></div>
+          <span class="probe-live"><i aria-hidden="true"></i> LIVE LOOP</span>
+          <button class="probe-close" id="probe-close" type="button" aria-label="Close identity probe">ESC&nbsp; ×</button>
+        </header>
+
+        <div class="probe-grid">
+          <div class="probe-visual">
+            <video id="anas-ascii-video" muted loop playsinline preload="none" data-poster="assets/anas-ascii-poster.jpg" aria-label="Rotating ASCII portrait of Anas Houhou">
+              <source data-src="assets/anas-ascii.mp4" type="video/mp4">
+            </video>
+            <span class="probe-tint" aria-hidden="true"></span>
+            <span class="probe-scan" aria-hidden="true"></span>
+            <span class="probe-corner probe-corner-tl" aria-hidden="true"></span>
+            <span class="probe-corner probe-corner-tr" aria-hidden="true"></span>
+            <span class="probe-corner probe-corner-bl" aria-hidden="true"></span>
+            <span class="probe-corner probe-corner-br" aria-hidden="true"></span>
+            <span class="probe-axis" aria-hidden="true">Y-AXIS / 360°</span>
+            <span class="probe-frame-count" id="probe-frame-count" aria-hidden="true">FRAME 000</span>
+          </div>
+
+          <aside class="probe-profile">
+            <p class="probe-overline">PERSONNEL RECORD / 01</p>
+            <h2 id="probe-title">ANAS<br>HOUHOU</h2>
+            <p class="probe-intro">The face behind the terminal. Software engineering student at ENSIAS, building backend and full-stack systems from requirements to production.</p>
+            <dl>
+              <div><dt>CLASS</dt><dd>SOFTWARE ENG.</dd></div>
+              <div><dt>BASE</dt><dd>RABAT, MA</dd></div>
+              <div><dt>RENDER</dt><dd>ASCII / 30 FPS</dd></div>
+              <div><dt>ROTATION</dt><dd>VERTICAL AXIS</dd></div>
+              <div><dt>STATUS</dt><dd class="success">AVAILABLE · PFE 2027</dd></div>
+            </dl>
+            <div class="probe-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="probe-controls">
+              <button id="probe-toggle" type="button">PAUSE STREAM</button>
+              <button id="probe-return" type="button">RETURN TO TERMINAL</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </dialog>
 
     <footer class="site-footer">
       <span>© <span id="year"></span> Anas Houhou</span>

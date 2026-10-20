@@ -2,6 +2,11 @@ const terminalOutput = document.querySelector('#terminal-output');
 const terminalForm = document.querySelector('#terminal-form');
 const terminalInput = document.querySelector('#terminal-input');
 const clock = document.querySelector('#clock');
+const identityProbe = document.querySelector('#identity-probe');
+const asciiVideo = document.querySelector('#anas-ascii-video');
+const asciiVideoSource = asciiVideo.querySelector('source');
+const probeToggle = document.querySelector('#probe-toggle');
+const probeFrameCount = document.querySelector('#probe-frame-count');
 const initialTerminalMarkup = terminalOutput.innerHTML;
 
 const commandHistory = [];
@@ -69,7 +74,7 @@ const commands = [
   'about', 'projects', 'project', 'experience', 'skills', 'education',
   'leadership', 'contact', 'resume', 'gui', 'github', 'linkedin',
   'artstation', 'theme', 'whoami', 'ls', 'pwd', 'date', 'history',
-  'neofetch', 'status', 'welcome', 'help', 'clear'
+  'neofetch', 'anas', 'status', 'welcome', 'help', 'clear'
 ];
 
 const aliases = {
@@ -129,6 +134,7 @@ function renderHelp() {
     ['gui', 'Launch the visual portfolio'],
     ['theme', 'Change terminal accent'],
     ['neofetch', 'Compact system/profile summary'],
+    ['anas', 'Run the visual identity probe'],
     ['status', 'Portfolio availability status'],
     ['welcome', 'Restore the welcome screen'],
     ['clear', 'Clear terminal output']
@@ -209,7 +215,33 @@ function renderNeofetch() {
       /  \\
      / /\\ \\
     / ____  \\
-   /_/    \\__\\</pre><dl><div><dt>user</dt><dd>Anas Houhou</dd></div><div><dt>school</dt><dd>ENSIAS · Software Engineering</dd></div><div><dt>focus</dt><dd>Backend · Full-stack · Mobile</dd></div><div><dt>experience</dt><dd>Mega Rayonnage · Nokia</dd></div><div><dt>availability</dt><dd class="success">PFE · January 18, 2027</dd></div><div><dt>shell</dt><dd>portfolio-terminal 1.0</dd></div></dl></div>`;
+   /_/    \\__\\</pre><dl><div><dt>user</dt><dd>Anas Houhou</dd></div><div><dt>school</dt><dd>ENSIAS · Software Engineering</dd></div><div><dt>focus</dt><dd>Backend · Full-stack · Mobile</dd></div><div><dt>experience</dt><dd>Mega Rayonnage · Nokia</dd></div><div><dt>availability</dt><dd class="success">PFE · January 18, 2027</dd></div><div><dt>shell</dt><dd>portfolio-terminal 1.0</dd></div><div><dt>identity</dt><dd>${commandButton('anas', 'run anas')}</dd></div></dl></div>`;
+}
+
+function updateProbePlaybackLabel() {
+  probeToggle.textContent = asciiVideo.paused ? 'PLAY STREAM' : 'PAUSE STREAM';
+}
+
+function openIdentityProbe() {
+  if (!identityProbe.open) identityProbe.showModal();
+  document.body.classList.add('probe-open');
+  if (!asciiVideo.dataset.ready) {
+    asciiVideo.poster = asciiVideo.dataset.poster;
+    asciiVideoSource.src = asciiVideoSource.dataset.src;
+    asciiVideo.load();
+    asciiVideo.dataset.ready = 'true';
+  }
+  if (asciiVideo.readyState > 0) asciiVideo.currentTime = 0;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) asciiVideo.play().catch(() => {});
+  updateProbePlaybackLabel();
+}
+
+function closeIdentityProbe() {
+  asciiVideo.pause();
+  if (identityProbe.open) identityProbe.close();
+  document.body.classList.remove('probe-open');
+  terminalInput.focus({ preventScroll: true });
 }
 
 function renderStatus() {
@@ -290,10 +322,14 @@ function executeCommand(rawCommand) {
       break;
     case 'whoami': response = '<p><span class="accent">visitor</span> — currently exploring the portfolio of <strong>Anas Houhou</strong>.</p>'; break;
     case 'pwd': response = '<p>/home/anas/portfolio</p>'; break;
-    case 'ls': response = '<p>about/ &nbsp; projects/ &nbsp; experience/ &nbsp; skills/ &nbsp; education/ &nbsp; leadership/ &nbsp; contact/ &nbsp; resume/ &nbsp; gui.html</p>'; break;
+    case 'ls': response = '<p>about/ &nbsp; projects/ &nbsp; experience/ &nbsp; skills/ &nbsp; education/ &nbsp; leadership/ &nbsp; contact/ &nbsp; resume/ &nbsp; anas.exe &nbsp; gui.html</p>'; break;
     case 'date': response = `<p>${new Date().toString()}</p>`; break;
     case 'history': response = `<ol class="output-list">${commandHistory.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ol>`; break;
     case 'neofetch': response = renderNeofetch(); break;
+    case 'anas':
+      response = '<p class="success">Identity signature accepted.</p><p>Opening visual probe… Press <kbd>Esc</kbd> to return.</p>';
+      setTimeout(openIdentityProbe, 180);
+      break;
     case 'status': response = renderStatus(); break;
     case 'theme': {
       const available = ['cyan', 'violet', 'amber'];
@@ -332,6 +368,26 @@ document.addEventListener('click', (event) => {
   terminalInput.focus({ preventScroll: true });
 });
 
+document.querySelector('#probe-close').addEventListener('click', closeIdentityProbe);
+document.querySelector('#probe-return').addEventListener('click', closeIdentityProbe);
+probeToggle.addEventListener('click', () => {
+  if (asciiVideo.paused) asciiVideo.play().catch(() => {});
+  else asciiVideo.pause();
+  updateProbePlaybackLabel();
+});
+asciiVideo.addEventListener('play', updateProbePlaybackLabel);
+asciiVideo.addEventListener('pause', updateProbePlaybackLabel);
+asciiVideo.addEventListener('timeupdate', () => {
+  probeFrameCount.textContent = `FRAME ${String(Math.floor(asciiVideo.currentTime * 30)).padStart(3, '0')}`;
+});
+identityProbe.addEventListener('click', (event) => {
+  if (event.target === identityProbe) closeIdentityProbe();
+});
+identityProbe.addEventListener('close', () => {
+  asciiVideo.pause();
+  document.body.classList.remove('probe-open');
+});
+
 terminalInput.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowUp') {
     event.preventDefault();
@@ -359,7 +415,7 @@ document.addEventListener('keydown', (event) => {
     terminalOutput.innerHTML = '';
     saveSession();
   }
-  if (event.key === 'Escape') terminalInput.focus({ preventScroll: true });
+  if (event.key === 'Escape' && !identityProbe.open) terminalInput.focus({ preventScroll: true });
 });
 
 function updateClock() {
