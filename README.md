@@ -1,6 +1,6 @@
-# Anas Houhou — CV
+# Anas Houhou — Portfolio
 
-Personal CV website hosted with GitHub Pages.
+Personal software engineering portfolio hosted with GitHub Pages.
 
 ## Local preview
 
