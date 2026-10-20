@@ -10,6 +10,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://skur-the-plug.github.io/">
     <title>Anas Houhou — Software Engineer</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,500&display=swap" rel="stylesheet">
@@ -26,10 +27,10 @@
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
       <nav id="main-nav" aria-label="Primary navigation">
-        <a href="#work">Work</a>
-        <a href="#experience">Experience</a>
-        <a href="#capabilities">Capabilities</a>
-        <a href="#contact">Contact</a>
+        <a href="#expertise"><span>01.</span> Expertise</a>
+        <a href="#work"><span>02.</span> Work</a>
+        <a href="#experience"><span>03.</span> Experience</a>
+        <a href="#contact"><span>04.</span> Contact</a>
       </nav>
       <a class="header-cta" href="mailto:anas_houhou@um5.ac.ma">Let’s talk <span aria-hidden="true">↗</span></a>
     </header>
@@ -37,33 +38,25 @@
     <main id="main">
       <section class="hero section-shell" id="top">
         <div class="hero-copy reveal">
-          <div class="availability"><i aria-hidden="true"></i> Available for PFE · Jan 2027</div>
-          <p class="kicker">ENSIAS · Software Engineering</p>
-          <h1>Software that leaves<br>the diagram and<br><em>gets used.</em></h1>
-          <p class="hero-intro">I’m Anas, a backend and full-stack engineer who turns messy operational problems into dependable web and mobile products.</p>
+          <div class="hero-status"><i aria-hidden="true"></i> Available for PFE · January 2027</div>
+          <p class="hero-overline">ENSIAS / RABAT / INTERNATIONALLY MOBILE</p>
+          <h1><span>ANAS</span><span>HOUHOU<span class="cursor">_</span></span></h1>
+          <p class="hero-role"><span>//</span> Software Engineer · Backend · Full-stack</p>
+          <p class="hero-intro">I turn complex operational problems into dependable web and mobile products—from architecture to production.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#work">See selected work <span aria-hidden="true">↓</span></a>
-            <a class="text-link" href="Cv_EN.pdf" target="_blank" rel="noopener">Open résumé <span aria-hidden="true">↗</span></a>
+            <a class="button button-primary" href="#work">Explore my work <span aria-hidden="true">↘</span></a>
+            <a class="text-link" href="Cv_EN.pdf" target="_blank" rel="noopener">Résumé <span aria-hidden="true">↗</span></a>
           </div>
         </div>
-
-        <aside class="hero-panel reveal" aria-label="Profile at a glance">
-          <div class="panel-top"><span>ENGINEER_PROFILE</span><span>2027</span></div>
-          <div class="panel-code" aria-hidden="true">
-            <p><b>const</b> anas = {</p>
-            <p class="indent">craft: <span>"backend + full-stack"</span>,</p>
-            <p class="indent">bias: <span>"ship, observe, improve"</span>,</p>
-            <p class="indent">base: <span>"Rabat, Morocco"</span>,</p>
-            <p class="indent">mobility: <span>true</span></p>
-            <p>};</p>
-          </div>
-          <div class="panel-metrics">
-            <div><strong>20+</strong><span>production users</span></div>
-            <div><strong>02</strong><span>industry internships</span></div>
-            <div><strong>06</strong><span>months sought</span></div>
-          </div>
-          <div class="panel-status"><i></i><span>OPEN TO MOROCCO & INTERNATIONAL</span></div>
-        </aside>
+        <div class="hero-scene" aria-hidden="true">
+          <div class="orb"></div>
+          <div class="cube cube-one"><i></i><b></b></div>
+          <div class="cube cube-two"><i></i><b></b></div>
+          <div class="cube cube-three"><i></i><b></b></div>
+          <div class="code-fragment fragment-one">{ API }</div>
+          <div class="code-fragment fragment-two">&lt;/SHIP&gt;</div>
+        </div>
+        <div class="hero-scroll"><span>SCROLL TO EXPLORE</span><i></i></div>
       </section>
 
       <div class="ticker" aria-hidden="true">
@@ -73,10 +66,38 @@
         </div>
       </div>
 
+      <section class="expertise section-shell" id="expertise">
+        <header class="expertise-heading reveal">
+          <p class="kicker">01 · My expertise</p>
+          <h2>Engineering across<br>the <em>whole product.</em></h2>
+          <p>Strongest at the backend, comfortable across the stack, and always focused on what reaches the user.</p>
+        </header>
+        <div class="expertise-grid">
+          <article class="expertise-card reveal">
+            <span class="expertise-number">01</span>
+            <div class="expertise-icon">{ }</div>
+            <h3>Software<br>Engineering</h3>
+            <p>Object-oriented and functional development with Python, Java, TypeScript, and C.</p>
+          </article>
+          <article class="expertise-card reveal">
+            <span class="expertise-number">02</span>
+            <div class="expertise-icon">↔</div>
+            <h3>Backend<br>Systems</h3>
+            <p>Secure APIs, data models, distributed services, testing, automation, and production delivery.</p>
+          </article>
+          <article class="expertise-card reveal">
+            <span class="expertise-number">03</span>
+            <div class="expertise-icon">◫</div>
+            <h3>Web &amp;<br>Mobile</h3>
+            <p>Responsive product experiences with React, React Native, Expo, and practical UI thinking.</p>
+          </article>
+        </div>
+      </section>
+
       <section class="work section-shell" id="work">
         <header class="section-heading reveal">
           <div>
-            <p class="kicker">Selected work · 01</p>
+            <p class="kicker">02 · Selected work</p>
             <h2>Built for the gap between<br><em>requirements and reality.</em></h2>
           </div>
           <p>Production experience, distributed systems, and practical software—each project began with a real constraint, not a technology checklist.</p>
@@ -151,7 +172,7 @@
       <section class="experience" id="experience">
         <div class="section-shell">
           <header class="section-heading light reveal">
-            <div><p class="kicker">Experience · 02</p><h2>Ownership from first<br>question to <em>production.</em></h2></div>
+            <div><p class="kicker">03 · Experience</p><h2>Ownership from first<br>question to <em>production.</em></h2></div>
             <p>I work across the stack, but the through-line is ownership: understand the operation, design the system, ship it, and verify the result.</p>
           </header>
 
@@ -174,7 +195,7 @@
 
       <section class="capabilities section-shell" id="capabilities">
         <div class="capability-intro reveal">
-          <p class="kicker">Capabilities · 03</p>
+          <p class="kicker">Technical index</p>
           <h2>A broad toolkit.<br><em>A backend core.</em></h2>
           <p>I choose tools around the shape of the problem, with particular care for data models, APIs, security boundaries, and maintainable delivery.</p>
           <a class="text-link" href="https://github.com/skur-the-plug" target="_blank" rel="noopener">Explore GitHub <span aria-hidden="true">↗</span></a>
@@ -191,7 +212,7 @@
 
       <section class="education">
         <div class="section-shell education-grid reveal">
-          <div><p class="kicker">Education · 04</p><span>2024 — 2027</span></div>
+          <div><p class="kicker">Education</p><span>2024 — 2027</span></div>
           <div><h3>Software Engineering Degree</h3><p>ENSIAS — École Nationale Supérieure d’Informatique et d’Analyse des Systèmes · Rabat</p></div>
           <div><span>2022 — 2024</span><h3>TSI Preparatory Programme</h3><p>Centre CPGE Tétouan</p></div>
         </div>
@@ -199,7 +220,7 @@
 
       <section class="beyond section-shell">
         <div class="beyond-copy reveal">
-          <p class="kicker">Beyond code · 05</p>
+          <p class="kicker">Beyond code</p>
           <h2>Systems thinker.<br><em>Visual maker.</em></h2>
           <p>I bring the same structural curiosity to digital creation and 3D art. That visual practice shapes how I model ideas, communicate systems, and build interfaces people can actually understand.</p>
           <a class="text-link" href="https://www.artstation.com/skurdaplug" target="_blank" rel="noopener">View ArtStation <span aria-hidden="true">↗</span></a>
@@ -213,7 +234,7 @@
       </section>
 
       <section class="contact section-shell reveal" id="contact">
-        <p class="kicker">Six-month PFE · From January 18, 2027</p>
+        <p class="kicker">04 · Contact · Six-month PFE from January 18, 2027</p>
         <h2>Let’s build something<br>that <em>earns its place.</em></h2>
         <div class="contact-grid">
           <a class="button button-primary" href="mailto:anas_houhou@um5.ac.ma">Start a conversation <span aria-hidden="true">↗</span></a>
