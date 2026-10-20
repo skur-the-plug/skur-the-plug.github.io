@@ -3,261 +3,112 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Anas Houhou — ENSIAS software engineering student building reliable backend, full-stack, and mobile products. Available for a six-month PFE from January 2027.">
-    <meta name="theme-color" content="#0b0d0c">
-    <meta property="og:title" content="Anas Houhou — Software Engineer">
-    <meta property="og:description" content="Backend and full-stack engineer. ENSIAS · Available for a six-month PFE from January 2027.">
+    <meta name="description" content="Interactive terminal portfolio of Anas Houhou — ENSIAS software engineering student seeking a six-month PFE from January 2027.">
+    <meta name="theme-color" content="#080b0d">
+    <meta property="og:title" content="Anas Houhou — Interactive Terminal Portfolio">
+    <meta property="og:description" content="Explore Anas Houhou’s software engineering work through an interactive terminal.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://skur-the-plug.github.io/">
-    <title>Anas Houhou — Software Engineer</title>
+    <title>Anas Houhou — Terminal Portfolio</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#terminal-input">Skip to terminal</a>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="glow glow-one" aria-hidden="true"></div>
+    <div class="glow glow-two" aria-hidden="true"></div>
 
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="Anas Houhou, home">
-        <span class="brand-mark">AH</span>
-        <span>Anas Houhou</span>
+    <header class="topbar">
+      <a class="identity" href="/" aria-label="Anas Houhou terminal home">
+        <span class="identity-mark">AH</span>
+        <span class="identity-copy"><strong>anas.dev</strong><small>interactive portfolio</small></span>
       </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
-      <nav id="main-nav" aria-label="Primary navigation">
-        <a href="#expertise"><span>01.</span> Expertise</a>
-        <a href="#work"><span>02.</span> Work</a>
-        <a href="#experience"><span>03.</span> Experience</a>
-        <a href="#contact"><span>04.</span> Contact</a>
-      </nav>
-      <a class="header-cta" href="mailto:anas_houhou@um5.ac.ma">Let’s talk <span aria-hidden="true">↗</span></a>
+      <div class="system-meta" aria-label="System status">
+        <span><i></i> AVAILABLE / PFE 2027</span>
+        <span class="system-clock" id="clock">--:--:--</span>
+      </div>
+      <a class="gui-link" href="gui.html">Visual mode <span aria-hidden="true">↗</span></a>
     </header>
 
-    <main id="main">
-      <section class="hero section-shell" id="top">
-        <div class="hero-copy reveal">
-          <div class="hero-status"><i aria-hidden="true"></i> Available for PFE · January 2027</div>
-          <p class="hero-overline">ENSIAS / RABAT / INTERNATIONALLY MOBILE</p>
-          <h1><span>ANAS</span><span>HOUHOU<span class="cursor">_</span></span></h1>
-          <p class="hero-role"><span>//</span> Software Engineer · Backend · Full-stack</p>
-          <p class="hero-intro">I turn complex operational problems into dependable web and mobile products—from architecture to production.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#work">Explore my work <span aria-hidden="true">↘</span></a>
-            <a class="text-link" href="Cv_EN.pdf" target="_blank" rel="noopener">Résumé <span aria-hidden="true">↗</span></a>
+    <main class="page-shell">
+      <section class="welcome" aria-labelledby="welcome-title">
+        <div class="welcome-copy">
+          <p class="overline"><span>PORTFOLIO.TTY</span> / VERSION 1.0</p>
+          <h1 id="welcome-title">Welcome to<br><em>AnasOS.</em></h1>
+          <p class="welcome-text">A command-driven portfolio for exploring my engineering work, experience, and background. Type a command, press Enter, and follow the prompts.</p>
+        </div>
+        <dl class="profile-facts">
+          <div><dt>USER</dt><dd>Anas Houhou</dd></div>
+          <div><dt>ROLE</dt><dd>Software Engineer</dd></div>
+          <div><dt>FOCUS</dt><dd>Backend · Full-stack</dd></div>
+          <div><dt>STATUS</dt><dd><i></i> PFE from Jan 18, 2027</dd></div>
+          <div><dt>LOCATION</dt><dd>Rabat · Internationally mobile</dd></div>
+          <div><dt>EDUCATION</dt><dd>ENSIAS · 3A</dd></div>
+        </dl>
+      </section>
+
+      <section class="terminal" aria-label="Interactive portfolio terminal">
+        <div class="terminal-chrome">
+          <div class="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span>anas@portfolio: ~</span>
+          <div class="terminal-actions"><button type="button" data-command="clear">clear</button><span>UTF-8</span></div>
+        </div>
+
+        <div class="terminal-output" id="terminal-output" role="log" aria-live="polite" aria-relevant="additions">
+          <div class="boot-block">
+            <p><span class="dim">[00:00:01]</span> Initializing portfolio kernel... <strong class="ok">OK</strong></p>
+            <p><span class="dim">[00:00:02]</span> Loading verified experience and project data... <strong class="ok">OK</strong></p>
+            <p><span class="dim">[00:00:03]</span> Mounting interactive command interface... <strong class="ok">OK</strong></p>
+          </div>
+          <pre class="ascii" aria-label="Anas Houhou">   ___    _   _____   _____
+  /   |  / | / /   | / ___/
+ / /| | /  |/ / /| | \__ \
+/ ___ |/ /|  / ___ |___/ /
+/_/  |_/_/ |_/_/  |_/____/  </pre>
+          <div class="system-welcome">
+            <p><strong>Welcome, visitor.</strong> This terminal contains the components of my portfolio.</p>
+            <p>Start with <button class="inline-command" type="button" data-command="help">help</button>, try <button class="inline-command" type="button" data-command="projects">projects</button>, or launch the traditional site with <button class="inline-command" type="button" data-command="gui">gui</button>.</p>
           </div>
         </div>
-        <div class="hero-scene" aria-hidden="true">
-          <div class="orb"></div>
-          <div class="cube cube-one"><i></i><b></b></div>
-          <div class="cube cube-two"><i></i><b></b></div>
-          <div class="cube cube-three"><i></i><b></b></div>
-          <div class="code-fragment fragment-one">{ API }</div>
-          <div class="code-fragment fragment-two">&lt;/SHIP&gt;</div>
-        </div>
-        <div class="hero-scroll"><span>SCROLL TO EXPLORE</span><i></i></div>
-      </section>
 
-      <div class="ticker" aria-hidden="true">
-        <div class="ticker-track">
-          <span>BACKEND ENGINEERING</span><b>✦</b><span>PRODUCT DELIVERY</span><b>✦</b><span>DISTRIBUTED SYSTEMS</span><b>✦</b><span>MOBILE</span><b>✦</b>
-          <span>BACKEND ENGINEERING</span><b>✦</b><span>PRODUCT DELIVERY</span><b>✦</b><span>DISTRIBUTED SYSTEMS</span><b>✦</b><span>MOBILE</span><b>✦</b>
-        </div>
-      </div>
+        <form class="terminal-form" id="terminal-form" autocomplete="off">
+          <label for="terminal-input"><span>visitor</span>@anas:~$</label>
+          <input id="terminal-input" name="command" type="text" inputmode="text" autocapitalize="off" autocomplete="off" spellcheck="false" aria-describedby="input-hint">
+          <span class="input-cursor" aria-hidden="true"></span>
+          <button type="submit">Run</button>
+        </form>
 
-      <section class="expertise section-shell" id="expertise">
-        <header class="expertise-heading reveal">
-          <p class="kicker">01 · My expertise</p>
-          <h2>Engineering across<br>the <em>whole product.</em></h2>
-          <p>Strongest at the backend, comfortable across the stack, and always focused on what reaches the user.</p>
-        </header>
-        <div class="expertise-grid">
-          <article class="expertise-card reveal">
-            <span class="expertise-number">01</span>
-            <div class="expertise-icon">{ }</div>
-            <h3>Software<br>Engineering</h3>
-            <p>Object-oriented and functional development with Python, Java, TypeScript, and C.</p>
-          </article>
-          <article class="expertise-card reveal">
-            <span class="expertise-number">02</span>
-            <div class="expertise-icon">↔</div>
-            <h3>Backend<br>Systems</h3>
-            <p>Secure APIs, data models, distributed services, testing, automation, and production delivery.</p>
-          </article>
-          <article class="expertise-card reveal">
-            <span class="expertise-number">03</span>
-            <div class="expertise-icon">◫</div>
-            <h3>Web &amp;<br>Mobile</h3>
-            <p>Responsive product experiences with React, React Native, Expo, and practical UI thinking.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="work section-shell" id="work">
-        <header class="section-heading reveal">
+        <div class="command-deck" id="input-hint">
+          <span>TRY A COMMAND</span>
           <div>
-            <p class="kicker">02 · Selected work</p>
-            <h2>Built for the gap between<br><em>requirements and reality.</em></h2>
-          </div>
-          <p>Production experience, distributed systems, and practical software—each project began with a real constraint, not a technology checklist.</p>
-        </header>
-
-        <div class="project-grid">
-          <article class="project project-featured reveal">
-            <div class="project-index"><span>01</span><span>PRODUCTION SYSTEM · 2026</span></div>
-            <div class="erp-visual" aria-label="Illustration of the ERP workflow">
-              <div class="erp-nav"><i></i><span>MEGA / OPERATIONS</span><b>LIVE</b></div>
-              <div class="erp-body">
-                <div class="erp-sidebar"><i></i><i></i><i></i><i></i></div>
-                <div class="erp-dashboard">
-                  <div class="erp-stat"><span>ORDERS</span><strong>LIVE</strong><small>2 sites</small></div>
-                  <div class="erp-stat"><span>PRODUCTIVITY</span><strong>SYNC</strong><small>audited</small></div>
-                  <div class="erp-chart"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-                  <div class="erp-feed"><i></i><i></i><i></i></div>
-                </div>
-              </div>
-            </div>
-            <div class="project-copy">
-              <div>
-                <h3>Intelligent ERP / CRM</h3>
-                <p>Designed and delivered a web and mobile operations platform used by 20+ people across two sites—unifying sales, planning, labour, invoicing, and financial reconciliation.</p>
-              </div>
-              <ul class="tags" aria-label="Technologies used">
-                <li>FastAPI</li><li>React Native</li><li>PostgreSQL</li><li>Gemini API</li><li>Docker</li><li>GitHub Actions</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="project project-secondary reveal">
-            <div class="project-index"><span>02</span><span>MICROSERVICES</span></div>
-            <div class="micro-visual" aria-hidden="true">
-              <span class="node node-a">AUTH</span><span class="node node-b">XP</span><span class="node node-c">CHAT</span><span class="node node-d">VOTE</span>
-              <i class="line line-a"></i><i class="line line-b"></i><i class="line line-c"></i><i class="line line-d"></i>
-              <strong>MIND<br>ARENA</strong>
-            </div>
-            <h3>MindArena</h3>
-            <p>A competitive challenge platform with submissions, voting, progression, leaderboards, notifications, and chat. I owned secure identity, XP, and leaderboard systems.</p>
-            <ul class="tags"><li>Java 21</li><li>Spring Boot</li><li>Redis</li><li>RabbitMQ</li><li>MariaDB</li></ul>
-          </article>
-
-          <article class="project project-secondary reveal">
-            <div class="project-index"><span>03</span><span>DATA PRODUCT</span></div>
-            <div class="message-visual" aria-hidden="true">
-              <div><i></i><p>Incident #492 · LTE</p></div><div><i></i><p>Maintenance scheduled</p></div><div><i></i><p>Upgrade complete</p></div>
-              <span>UNSTRUCTURED</span><b>→</b><span>ACTIONABLE</span>
-            </div>
-            <h3>Operations Intelligence Prototype</h3>
-            <p>Turned unstructured WhatsApp histories into searchable incidents, maintenance events, timelines, and KPIs during an internship at Nokia.</p>
-            <ul class="tags"><li>React</li><li>Node.js</li><li>Express</li><li>SQLite</li></ul>
-          </article>
-        </div>
-
-        <div class="more-work">
-          <article class="compact-project reveal">
-            <span>04 · MOBILE</span>
-            <h3>Epidemic Tracking</h3>
-            <p>Citizen and physician mobile journeys, reporting forms, dashboards, and risk-zone mapping.</p>
-            <div>React Native · REST API · UML</div>
-          </article>
-          <article class="compact-project reveal">
-            <span>05 · ENGINEERING DESIGN</span>
-            <h3>Inclusive Sports Simulator</h3>
-            <p>A VR sports simulator with a four-cable platform—recognised as the best TSI TIPE.</p>
-            <div>Blender · Control · SysML · VR</div>
-          </article>
-        </div>
-      </section>
-
-      <section class="experience" id="experience">
-        <div class="section-shell">
-          <header class="section-heading light reveal">
-            <div><p class="kicker">03 · Experience</p><h2>Ownership from first<br>question to <em>production.</em></h2></div>
-            <p>I work across the stack, but the through-line is ownership: understand the operation, design the system, ship it, and verify the result.</p>
-          </header>
-
-          <div class="timeline">
-            <article class="timeline-row reveal">
-              <div class="timeline-date">JUL — SEP<br>2026</div>
-              <div class="timeline-marker"><i></i></div>
-              <div><p>MEGA RAYONNAGE · TANGIER</p><h3>Software Engineering Intern</h3></div>
-              <div class="timeline-description">Owned the technical design and end-to-end delivery of an ERP/CRM across web and mobile. Hardened production with JWT, granular permissions, mutation auditing, Pytest, Docker, CI/CD, Apache, and HTTPS.</div>
-            </article>
-            <article class="timeline-row reveal">
-              <div class="timeline-date">JUL — AUG<br>2025</div>
-              <div class="timeline-marker"><i></i></div>
-              <div><p>NOKIA · SALÉ</p><h3>Software Engineering Intern</h3></div>
-              <div class="timeline-description">Owned a local web prototype for extracting operational intelligence from message histories. Built the data pipeline, REST API, search, filters, timelines, KPIs, and React interface.</div>
-            </article>
+            <button type="button" data-command="about">about</button>
+            <button type="button" data-command="projects">projects</button>
+            <button type="button" data-command="experience">experience</button>
+            <button type="button" data-command="skills">skills</button>
+            <button type="button" data-command="resume">resume</button>
+            <button type="button" data-command="contact">contact</button>
+            <button type="button" data-command="gui">gui ↗</button>
           </div>
         </div>
-      </section>
 
-      <section class="capabilities section-shell" id="capabilities">
-        <div class="capability-intro reveal">
-          <p class="kicker">Technical index</p>
-          <h2>A broad toolkit.<br><em>A backend core.</em></h2>
-          <p>I choose tools around the shape of the problem, with particular care for data models, APIs, security boundaries, and maintainable delivery.</p>
-          <a class="text-link" href="https://github.com/skur-the-plug" target="_blank" rel="noopener">Explore GitHub <span aria-hidden="true">↗</span></a>
-        </div>
-        <div class="capability-list reveal">
-          <article><span>01</span><div><h3>Backend</h3><p>FastAPI · Spring Boot · Spring Security · Express · REST APIs · SQLAlchemy</p></div></article>
-          <article><span>02</span><div><h3>Languages</h3><p>Python · Java · C · TypeScript · SQL</p></div></article>
-          <article><span>03</span><div><h3>Frontend & Mobile</h3><p>React · React Native · Expo</p></div></article>
-          <article><span>04</span><div><h3>Data</h3><p>PostgreSQL · MariaDB · SQLite · Redis</p></div></article>
-          <article><span>05</span><div><h3>Engineering</h3><p>Docker · GitHub Actions · Git · Linux · Apache · Pytest</p></div></article>
-          <article><span>06</span><div><h3>Exploring</h3><p>Kubernetes · Jenkins · Flutter</p></div></article>
-        </div>
-      </section>
-
-      <section class="education">
-        <div class="section-shell education-grid reveal">
-          <div><p class="kicker">Education</p><span>2024 — 2027</span></div>
-          <div><h3>Software Engineering Degree</h3><p>ENSIAS — École Nationale Supérieure d’Informatique et d’Analyse des Systèmes · Rabat</p></div>
-          <div><span>2022 — 2024</span><h3>TSI Preparatory Programme</h3><p>Centre CPGE Tétouan</p></div>
-        </div>
-      </section>
-
-      <section class="beyond section-shell">
-        <div class="beyond-copy reveal">
-          <p class="kicker">Beyond code</p>
-          <h2>Systems thinker.<br><em>Visual maker.</em></h2>
-          <p>I bring the same structural curiosity to digital creation and 3D art. That visual practice shapes how I model ideas, communicate systems, and build interfaces people can actually understand.</p>
-          <a class="text-link" href="https://www.artstation.com/skurdaplug" target="_blank" rel="noopener">View ArtStation <span aria-hidden="true">↗</span></a>
-        </div>
-        <div class="leadership reveal">
-          <p class="kicker">Leadership</p>
-          <article><span>2024 — 2025</span><h3>Vice President</h3><p>ADEI</p></article>
-          <article><span>2024 — PRESENT</span><h3>Design & Outreach Lead</h3><p>Forum GENI Entreprises</p></article>
-          <article><span>2025 — 2026</span><h3>Public Relations</h3><p>Junior Entreprise ENSIAS</p></article>
-        </div>
-      </section>
-
-      <section class="contact section-shell reveal" id="contact">
-        <p class="kicker">04 · Contact · Six-month PFE from January 18, 2027</p>
-        <h2>Let’s build something<br>that <em>earns its place.</em></h2>
-        <div class="contact-grid">
-          <a class="button button-primary" href="mailto:anas_houhou@um5.ac.ma">Start a conversation <span aria-hidden="true">↗</span></a>
-          <div><span>Email</span><a href="mailto:anas_houhou@um5.ac.ma">anas_houhou@um5.ac.ma</a></div>
-          <div><span>Phone</span><a href="tel:+212666999597">+212 666-999597</a></div>
-          <div><span>Location</span><p>Rabat · Internationally mobile</p></div>
-        </div>
-        <div class="cv-links">
-          <span>RÉSUMÉ</span>
-          <a href="Cv_EN.pdf" download="Anas-Houhou-CV-EN.pdf">English</a>
-          <a href="Cv.pdf" download="Anas-Houhou-CV-FR.pdf">Français</a>
-          <a href="Cv_ATS_EN.pdf" download="Anas-Houhou-CV-ATS-EN.pdf">ATS English</a>
-          <a href="Cv_ATS_FR.pdf" download="Anas-Houhou-CV-ATS-FR.pdf">ATS Français</a>
+        <div class="terminal-footer">
+          <span><kbd>↑</kbd><kbd>↓</kbd> history</span>
+          <span><kbd>Tab</kbd> autocomplete</span>
+          <span><kbd>Ctrl</kbd> + <kbd>L</kbd> clear</span>
+          <span class="connection"><i></i> secure session</span>
         </div>
       </section>
     </main>
 
-    <footer>
-      <div class="section-shell footer-inner">
-        <span>© <span id="year"></span> Anas Houhou</span>
-        <div><a href="https://github.com/skur-the-plug" target="_blank" rel="noopener">GitHub</a><a href="https://ma.linkedin.com/in/anas-houhou-27b7081b3/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.artstation.com/skurdaplug" target="_blank" rel="noopener">ArtStation</a></div>
-        <a href="#top">Back to top ↑</a>
-      </div>
+    <footer class="site-footer">
+      <span>© <span id="year"></span> Anas Houhou</span>
+      <span>Type <button type="button" data-command="help">help</button> whenever you feel lost.</span>
+      <div><a href="https://github.com/skur-the-plug" target="_blank" rel="noopener">GitHub</a><a href="https://ma.linkedin.com/in/anas-houhou-27b7081b3/" target="_blank" rel="noopener">LinkedIn</a></div>
     </footer>
   </body>
 </html>
