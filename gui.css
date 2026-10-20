@@ -372,3 +372,8 @@ footer { border-top: 1px solid var(--line); }
   .fragment-one { display: none; }
   .hero-scroll { bottom: 1rem; }
 }
+
+/* Keep the preserved visual portfolio readable at normal browser zoom too. */
+@media (min-width: 821px) {
+  html { font-size: 18px; }
+}

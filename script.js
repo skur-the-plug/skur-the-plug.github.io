@@ -2,6 +2,7 @@ const terminalOutput = document.querySelector('#terminal-output');
 const terminalForm = document.querySelector('#terminal-form');
 const terminalInput = document.querySelector('#terminal-input');
 const clock = document.querySelector('#clock');
+const initialTerminalMarkup = terminalOutput.innerHTML;
 
 const commandHistory = [];
 let historyIndex = 0;
@@ -67,7 +68,8 @@ const projectData = {
 const commands = [
   'about', 'projects', 'project', 'experience', 'skills', 'education',
   'leadership', 'contact', 'resume', 'gui', 'github', 'linkedin',
-  'artstation', 'theme', 'whoami', 'ls', 'pwd', 'date', 'history', 'help', 'clear'
+  'artstation', 'theme', 'whoami', 'ls', 'pwd', 'date', 'history',
+  'neofetch', 'status', 'welcome', 'help', 'clear'
 ];
 
 const aliases = {
@@ -81,6 +83,15 @@ const aliases = {
   cls: 'clear'
 };
 
+function saveSession() {
+  try {
+    sessionStorage.setItem('anas-terminal-output', terminalOutput.innerHTML);
+    sessionStorage.setItem('anas-terminal-history', JSON.stringify(commandHistory));
+  } catch {
+    // The terminal remains fully functional when storage is unavailable.
+  }
+}
+
 function escapeHtml(value) {
   return value.replace(/[&<>'"]/g, (character) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
@@ -93,6 +104,7 @@ function appendEntry(command, html) {
   entry.innerHTML = `<p class="prompt-line"><span>visitor</span>@anas:~$ ${escapeHtml(command)}</p><div class="response">${html}</div>`;
   terminalOutput.append(entry);
   terminalOutput.scrollTo({ top: terminalOutput.scrollHeight, behavior: 'smooth' });
+  saveSession();
 }
 
 function commandButton(command, label = command) {
@@ -116,6 +128,9 @@ function renderHelp() {
     ['contact', 'Email, phone, and social links'],
     ['gui', 'Launch the visual portfolio'],
     ['theme', 'Change terminal accent'],
+    ['neofetch', 'Compact system/profile summary'],
+    ['status', 'Portfolio availability status'],
+    ['welcome', 'Restore the welcome screen'],
     ['clear', 'Clear terminal output']
   ];
   return `<p><strong>Available commands</strong></p><div class="command-grid">${rows.map(([name, description]) => `<div class="command-row">${name.includes('&lt;') ? `<span class="accent">${name}</span>` : commandButton(name)}<span>${description}</span></div>`).join('')}</div><p class="nested-hint">Tip: use <kbd>Tab</kbd> to autocomplete and <kbd>↑</kbd>/<kbd>↓</kbd> to revisit commands.</p>`;
@@ -189,6 +204,18 @@ function renderContact() {
   return `<div class="output-card"><h3>Let’s build something useful.</h3><p class="meta">AVAILABLE FOR A SIX-MONTH PFE FROM JANUARY 18, 2027</p><p>Rabat, Morocco · Internationally mobile</p><div class="link-row"><a class="terminal-link" href="mailto:anas_houhou@um5.ac.ma">email ↗</a><a class="terminal-link" href="tel:+212666999597">phone ↗</a><a class="terminal-link" href="https://github.com/skur-the-plug" target="_blank" rel="noopener">github ↗</a><a class="terminal-link" href="https://ma.linkedin.com/in/anas-houhou-27b7081b3/" target="_blank" rel="noopener">linkedin ↗</a></div></div>`;
 }
 
+function renderNeofetch() {
+  return `<div class="neofetch"><pre>       /\\
+      /  \\
+     / /\\ \\
+    / ____  \\
+   /_/    \\__\\</pre><dl><div><dt>user</dt><dd>Anas Houhou</dd></div><div><dt>school</dt><dd>ENSIAS · Software Engineering</dd></div><div><dt>focus</dt><dd>Backend · Full-stack · Mobile</dd></div><div><dt>experience</dt><dd>Mega Rayonnage · Nokia</dd></div><div><dt>availability</dt><dd class="success">PFE · January 18, 2027</dd></div><div><dt>shell</dt><dd>portfolio-terminal 1.0</dd></div></dl></div>`;
+}
+
+function renderStatus() {
+  return `<p><span class="success">● ONLINE</span> Portfolio systems operational.</p><div class="command-grid"><div class="command-row"><span>terminal</span><span class="success">ready</span></div><div class="command-row"><span>visual GUI</span><span class="success">ready</span></div><div class="command-row"><span>résumés</span><span class="success">4 editions</span></div><div class="command-row"><span>PFE</span><span class="success">available Jan 2027</span></div></div>`;
+}
+
 function renderResume(query) {
   const options = {
     en: ['Cv_EN.pdf', 'English résumé'],
@@ -222,6 +249,14 @@ function executeCommand(rawCommand) {
 
   if (command === 'clear') {
     terminalOutput.innerHTML = '';
+    saveSession();
+    return;
+  }
+
+  if (command === 'welcome') {
+    terminalOutput.innerHTML = initialTerminalMarkup;
+    terminalOutput.scrollTop = 0;
+    saveSession();
     return;
   }
 
@@ -258,6 +293,8 @@ function executeCommand(rawCommand) {
     case 'ls': response = '<p>about/ &nbsp; projects/ &nbsp; experience/ &nbsp; skills/ &nbsp; education/ &nbsp; leadership/ &nbsp; contact/ &nbsp; resume/ &nbsp; gui.html</p>'; break;
     case 'date': response = `<p>${new Date().toString()}</p>`; break;
     case 'history': response = `<ol class="output-list">${commandHistory.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}</ol>`; break;
+    case 'neofetch': response = renderNeofetch(); break;
+    case 'status': response = renderStatus(); break;
     case 'theme': {
       const available = ['cyan', 'violet', 'amber'];
       const requested = argument || available[(available.indexOf(activeTheme) + 1) % available.length];
@@ -266,6 +303,7 @@ function executeCommand(rawCommand) {
       } else {
         activeTheme = requested;
         document.body.dataset.theme = requested === 'cyan' ? '' : requested;
+        try { localStorage.setItem('anas-terminal-theme', requested); } catch {}
         response = `<p class="success">Theme changed to ${requested}.</p>`;
       }
       break;
@@ -319,6 +357,7 @@ document.addEventListener('keydown', (event) => {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'l') {
     event.preventDefault();
     terminalOutput.innerHTML = '';
+    saveSession();
   }
   if (event.key === 'Escape') terminalInput.focus({ preventScroll: true });
 });
@@ -332,5 +371,26 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 document.querySelector('#year').textContent = new Date().getFullYear();
+
+try {
+  const savedOutput = sessionStorage.getItem('anas-terminal-output');
+  const savedHistory = JSON.parse(sessionStorage.getItem('anas-terminal-history') || '[]');
+  const savedTheme = localStorage.getItem('anas-terminal-theme');
+  if (savedOutput) terminalOutput.innerHTML = savedOutput;
+  if (Array.isArray(savedHistory)) commandHistory.push(...savedHistory.slice(-40));
+  historyIndex = commandHistory.length;
+  if (['violet', 'amber'].includes(savedTheme)) {
+    activeTheme = savedTheme;
+    document.body.dataset.theme = savedTheme;
+  }
+} catch {
+  // Storage is an enhancement, never a requirement.
+}
+
+const sharedCommand = new URLSearchParams(window.location.search).get('cmd');
+if (sharedCommand) {
+  setTimeout(() => executeCommand(sharedCommand), 120);
+  window.history.replaceState({}, '', window.location.pathname);
+}
 
 if (window.matchMedia('(pointer: fine)').matches) terminalInput.focus({ preventScroll: true });
